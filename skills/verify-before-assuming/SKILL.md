@@ -38,7 +38,6 @@ Verify these before asserting them:
 2. **Check context** — was this already established in the conversation? If yes, proceed.
 3. **Verify** — use one of:
    - `web_search` — for external facts, documentation, release notes
-   - `search_code` — for code-level details (function signatures, config keys)
    - `get_file_contents` — for reading specific files in a known repo
 4. **State the verified fact** — cite what you found, not what you remembered
 5. **If unverifiable** — say so explicitly rather than guessing
