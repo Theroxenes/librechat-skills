@@ -1,6 +1,6 @@
 ---
 name: verify-before-assuming
-description: Use when the model is about to state a fact, API detail, version number, configuration key, or any other concrete claim that it has not already established in the current conversation. Triggers: first-time mentions of specific APIs, library versions, CLI flags, config paths, error codes, or any detail the model could be hallucinating. Do NOT trigger for general knowledge already confirmed in-context.
+description: "Use when the model is about to state a fact, API detail, version number, configuration key, or any other concrete claim that it has not already established in the current conversation. Triggers: first-time mentions of specific APIs, library versions, CLI flags, config paths, error codes, or any detail the model could be hallucinating. Do NOT trigger for general knowledge already confirmed in-context."
 always-apply: true
 ---
 
