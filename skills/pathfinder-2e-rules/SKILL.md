@@ -7,7 +7,7 @@ description: "Use when answering questions about Pathfinder Second Edition (PF2e
 
 ## Authoritative Source
 
-Always prefer **Archives of Nethys** (<https://2e.aonprd.com>) as the primary reference for Pathfinder 2e rules. It is the official free-reference site maintained by Paizo and contains the complete remastered ruleset.
+Always prefer **Archives of Nethys** (<https://2e.aonprd.com>) as the primary reference for Pathfinder 2e rules. It is the free-reference site and contains the complete remastered ruleset.
 
 Use `web_search` with `site:2e.aonprd.com` to look up specific rules, spells, feats, monsters, equipment, or conditions when precision matters.
 
@@ -25,8 +25,7 @@ Pathfinder 2e underwent a **remaster** that removed alignment, reworked many sub
 |---|---|
 | Alignment | Removed entirely |
 | Spell schools (Conjuration, Evocation, etc.) | Removed; traditions remain |
-| Many feats & spells | Rebalanced or replaced |
-| Ancestry / heritage systems | Significantly reworked |
+| Many feats, spells, and items | Rebalanced or replaced |
 
 ## Workflow for Rules Questions
 
