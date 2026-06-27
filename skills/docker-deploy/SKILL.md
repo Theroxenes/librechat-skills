@@ -14,7 +14,7 @@ description: >
 
 ## Core Principles
 
-All compose files must be Portainer-compatible: no `${VAR}` interpolation, no `env_file:`, all values inline. Prefer official Docker Hub images — verify with `web_search` before recommending. Include restart policies, health checks, explicit port mappings. Warn before exposing database ports.
+All compose files must be Portainer-compatible: no `${VAR}` interpolation, no `env_file:`, all values inline. Prefer official Docker Hub images — verify with Github MCP or `web_search` before recommending. Include restart policies, health checks, explicit port mappings. Warn before exposing database ports.
 
 ## Compose File Standards
 
