@@ -24,9 +24,10 @@ Write modules, macros, and client-side code for Foundry Virtual Tabletop v14. Al
 |---|---|
 | Foundry VTT API docs (v14) | https://foundryvtt.com/api/ |
 | Foundry VTT GitHub | https://github.com/foundryvtt/foundryvtt |
+| pf2e-types (Foundry + PF2e TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
 | Module development guide | https://foundryvtt.com/article/module-development/ |
 
-When unsure about an API surface, search the official docs — do not guess at class names or method signatures.
+When unsure about an API surface, check the pf2e-types repository or search the official docs — do not guess at class names or method signatures.
 
 ## Core Concepts
 
@@ -159,6 +160,25 @@ Target ES2024 with strict mode. Recommended tsconfig:
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "lib": ["ES2024", "DOM", "DOM.Iterable"]
+  }
+}
+```
+
+### Looking Up Types and Class Definitions
+
+When you need to verify a Foundry VTT class definition, method signature, global namespace augmentation, or type shape — check the pf2e-types repository at https://github.com/7H3LaughingMan/pf2e-types before running a web search. It provides comprehensive `.d.ts` declarations for all core Foundry v14 classes (via its `@7h3laughingman/foundry-types` dependency) and is the most reliable source for exact API surfaces.
+
+Key files to check:
+- `src/global.d.ts` — Foundry global namespace augmentations (`game`, `canvas`, `ui`, `Hooks`)
+- `src/global-exports.d.ts` — Exported class and interface declarations
+- `src/global-functions.d.ts` — Global helper function signatures
+
+Install as dev dependencies for your own projects:
+```json
+{
+  "devDependencies": {
+    "@7h3laughingman/foundry-types": "~14.360.8",
+    "@7h3laughingman/pf2e-types": "^8.0.2"
   }
 }
 ```
