@@ -1,41 +1,35 @@
 ---
 name: foundry-vtt-developer
 description: >
-  Develop modules, macros, and code for Foundry VTT v14. Use this skill whenever
-  the user asks to write, debug, review, or explain Foundry VTT JavaScript/TypeScript
-  code — including module manifests, ESModules, Hook registration, Document/DataModel
-  patterns, ApplicationV2 UI, canvas interactions, compendium packs, or any Foundry-
-  specific API. Also triggers for Foundry macro scripts. If the user mentions "Foundry",
-  "FoundryVTT", "module.json", "game.ready", "Hooks.callOnce", "DocumentSheet",
-  "Compendium", "canvas.tokens", or any Foundry-specific class name,invoke this skill.
-  Do NOT use this for PF2e system internals — use the pf2e-system skill for that instead.
+  Develop modules, macros, and code for Foundry VTT v14. Use when writing, debugging,
+  or explaining Foundry VTT JS/TS code — module manifests, ESModules, Hooks,
+  Document/DataModel, ApplicationV2, canvas, compendiums, macros. Triggers:
+  "Foundry", "module.json", "game.ready", "Hooks.callOnce", "DocumentSheet",
+  "Compendium", "canvas.tokens". Do NOT use for PF2e system internals — use
+  pf2e-system skill instead.
 ---
 
-# Foundry VTT Developer (v14)
-
-Write modules, macros, and client-side code for Foundry Virtual Tabletop v14. All code runs in the browser context.
+# Foundry VTT Developer (v14) — all code runs in browser context
 
 ## Authoritative References
 
-| Resource | URL |
-|---|---|
-| pf2e-types (Foundry + PF2e TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
-| Foundry VTT API docs (v14) | https://foundryvtt.com/api/ |
-| Foundry VTT GitHub | https://github.com/foundryvtt/foundryvtt |
-| Module development guide | https://foundryvtt.com/article/module-development/ |
+- pf2e-types: <https://github.com/7H3LaughingMan/pf2e-types>
+- API docs (v14): <https://foundryvtt.com/api/>
+- GitHub: <https://github.com/foundryvtt/foundryvtt>
+- Module dev guide: <https://foundryvtt.com/article/module-development/>
 
-When unsure about an API surface, check the pf2e-types repository or search the official docs — do not guess at class names or method signatures.
+Always check pf2e-types or official docs before guessing at class names/signatures.
 
 ## Core Concepts
 
 ### Package Types
 
-- **Modules** (`module.json`): Add-ons that extend Foundry functionality. Loaded via `esmodules` or `scripts` arrays in the manifest.
-- **Macros**: JavaScript snippets executed in the Foundry client context. No manifest needed — code runs directly from the Macro editor.
+- **Modules** (`module.json`): loaded via `esmodules` (preferred) or `scripts`
+- **Macros**: JS snippets in Macro editor, no manifest needed
 
 ### Module Manifest (`module.json`)
 
-Every module needs a `module.json` at its root. Minimum viable:
+Minimum viable:
 
 ```json
 {
@@ -52,55 +46,35 @@ Every module needs a `module.json` at its root. Minimum viable:
 }
 ```
 
-Key rules:
-- `name` must match the folder name exactly — mismatch causes silent load failures
-- Use `esmodules` for ES module entry points (preferred); use `scripts` only for legacy non-module JS
-- `compatibility.verified` should be the latest patch you tested against
+- `name` MUST match folder name (silent failure if not). `compatibility.verified` = latest tested patch.
 
 ### Hook System
 
-Foundry's event system is hook-based. Register callbacks with `Hooks.on`, `Hooks.once`, or `Hooks.callAll`. Common hooks:
+Register with `Hooks.on` (recurring), `Hooks.once` (one-time init), or `Hooks.callAll`. Never access game data before `ready`:
 
 | Hook | When |
 |---|---|
-| `load` | Before world data loads; earliest client hook |
-| `setup` | After world data loads, before ready |
-| `ready` | Everything initialized; safe to access game data |
-| `renderApplication` / `renderApplicationV2` | When an application renders |
-| `createDocument` / `updateDocument` / `deleteDocument` | Document lifecycle events |
-| `getSceneControlButtons` | Customize scene toolbar buttons |
-| `hotbarDrop` | Handle drag-and-drop to hotbar |
-
-Use `Hooks.once("ready")` for one-time initialization. Use `Hooks.on` for recurring event handlers. Never access game data before the `ready` hook fires.
+| `load` | Before world data loads |
+| `setup` | After data loads, before ready |
+| `ready` | Everything initialized — safe to access game data |
+| `renderApplicationV2` | App renders |
+| `createDocument`/`updateDocument`/`deleteDocument` | Doc lifecycle |
+| `getSceneControlButtons` | Toolbar buttons |
 
 ### Document & DataModel Architecture
 
-Foundry uses a Document/DataModel split:
+Always use `.update()`, never mutate directly:
 
-- **Document** — handles persistence, permissions, and database operations
-- **DataModel** — holds the actual data with validation and defaults
-
-Access patterns:
 ```javascript
-// Get a document
 const actor = game.actors.get(actorId);
-const character = await Actor.fromId(actorId);
-
-// Read data through direct properties
-actor.name;
-actor.system.hp.value;
-
-// Modify — always use update(), never mutate directly
 await actor.update({ name: "New Name" });
 await actor.update({ "system.hp.value": 10 });
-
-// Create
 const newActor = await Actor.create({ name: "NPC", type: "character", system: {} });
 ```
 
 ### ApplicationV2 (v12+)
 
-Foundry v12+ introduced ApplicationV2 as the modern UI framework. Prefer it over legacy Application when building new UI:
+Prefer over legacy `Application`:
 
 ```typescript
 import { ApplicationV2, FormApplication } from "foundry";
@@ -113,19 +87,15 @@ export class MySettings extends ApplicationV2 {
 ### Canvas & Token Interaction
 
 ```javascript
-// Current scene and tokens
 const scene = game.scenes.viewed;
 const tokens = canvas.tokens.controlled;
 const token = tokens[0];
 const actor = token?.actor;
-
-// Create a chat message
 await ChatMessage.create({ content: "Hello!", user: game.user.id });
 ```
 
 ### Compendium Packs
 
-Access via `game.packs`:
 ```javascript
 const pack = game.packs.get("pf2e.spells-srd");
 const documents = await pack.getIndex();
@@ -134,18 +104,16 @@ const doc = await pack.getDocument(documentId);
 
 ### Socket Listeners (v11+)
 
-For server-client communication:
 ```javascript
 // Register listener in module entry point
 game.socket.on("module.my-event", (data) => { /* handle */ });
-
 // Emit from any context
 game.socket.emit("module.my-event", { key: "value" }, { scope: "world" });
 ```
 
 ### TypeScript Configuration
 
-Target ES2024 with strict mode. Recommended tsconfig:
+ES2024, strict, NodeNext modules:
 
 ```json
 {
@@ -161,16 +129,10 @@ Target ES2024 with strict mode. Recommended tsconfig:
 }
 ```
 
-### Looking Up Types and Class Definitions
+### Looking Up Types
 
-When you need to verify a Foundry VTT class definition, method signature, global namespace augmentation, or type shape — check the pf2e-types repository at https://github.com/7H3LaughingMan/pf2e-types before running a web search. It provides comprehensive `.d.ts` declarations for all core Foundry v14 classes (via its `@7h3laughingman/foundry-types` dependency) and is the most reliable source for exact API surfaces.
+Always check pf2e-types (<https://github.com/7H3LaughingMan/pf2e-types>) before web search. Key files: `src/global.d.ts` (namespace augmentations), `src/global-exports.d.ts` (class declarations), `src/global-functions.d.ts` (helpers). Install:
 
-Key files to check:
-- `src/global.d.ts` — Foundry global namespace augmentations (`game`, `canvas`, `ui`, `Hooks`)
-- `src/global-exports.d.ts` — Exported class and interface declarations
-- `src/global-functions.d.ts` — Global helper function signatures
-
-Install as dev dependencies for your own projects:
 ```json
 {
   "devDependencies": {
@@ -180,11 +142,4 @@ Install as dev dependencies for your own projects:
 }
 ```
 
-## Common Pitfalls
-
-1. **Never mutate Document data directly** — always use `.update()` or `.create()`
-2. **Check `game.user.isGM` / `game.user.isActiveGM`** before running GM-only operations
-3. **Use `Hooks.once("ready")` for initialization** — accessing game data before ready will fail
-4. **Module `name` must match folder name** — mismatch causes silent load failures
-5. **No server-side code** — Foundry modules run client-side only (with socket-based server communication via `game.socket`)
-6. **PF2e system internals are out of scope** — for PF2e-specific APIs, data structures, or the Rule Element system, use the pf2e-system skill instead
+## Pitfalls: never mutate docs directly (use `.update()`), guard GM ops with `game.user.isGM`, init in `Hooks.once("ready")`, module `name` must match folder, no server-side code (use `game.socket`), PF2e internals → use pf2e-system skill.
