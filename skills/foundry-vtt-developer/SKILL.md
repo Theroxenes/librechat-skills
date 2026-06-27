@@ -3,15 +3,12 @@ name: foundry-vtt-developer
 description: >
   Develop modules, macros, and code for Foundry VTT v14. Use this skill whenever
   the user asks to write, debug, review, or explain Foundry VTT JavaScript/TypeScript
-  code — including module.json manifests, ES module entry points, Hooks registration
-  (game.ready, render*, createDocument, updateDocument), Document/DataModel patterns,
-  ApplicationV2 UI, canvas interactions, chat messages, compendium packs, socket
-  listeners, or any Foundry-specific API. Also triggers for Foundry macro scripts
-  (JavaScript snippets run from the hotbar). If the user mentions "Foundry",
+  code — including module manifests, ESModules, Hook registration, Document/DataModel
+  patterns, ApplicationV2 UI, canvas interactions, compendium packs, or any Foundry-
+  specific API. Also triggers for Foundry macro scripts. If the user mentions "Foundry",
   "FoundryVTT", "module.json", "game.ready", "Hooks.callOnce", "DocumentSheet",
-  "Compendium", "TokenHUD", "canvas.tokens", or any Foundry-specific class name,
-  invoke this skill. Do NOT use this for PF2e system internals — use the pf2e-system
-  skill for that instead.
+  "Compendium", "canvas.tokens", or any Foundry-specific class name,invoke this skill.
+  Do NOT use this for PF2e system internals — use the pf2e-system skill for that instead.
 ---
 
 # Foundry VTT Developer (v14)
@@ -22,11 +19,12 @@ Write modules, macros, and client-side code for Foundry Virtual Tabletop v14. Al
 
 | Resource | URL |
 |---|---|
+| pf2e-types (Foundry + PF2e TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
 | Foundry VTT API docs (v14) | https://foundryvtt.com/api/ |
 | Foundry VTT GitHub | https://github.com/foundryvtt/foundryvtt |
 | Module development guide | https://foundryvtt.com/article/module-development/ |
 
-When unsure about an API surface, search the official docs — do not guess at class names or method signatures.
+When unsure about an API surface, check the pf2e-types repository or search the official docs — do not guess at class names or method signatures.
 
 ## Core Concepts
 
@@ -159,6 +157,25 @@ Target ES2024 with strict mode. Recommended tsconfig:
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "lib": ["ES2024", "DOM", "DOM.Iterable"]
+  }
+}
+```
+
+### Looking Up Types and Class Definitions
+
+When you need to verify a Foundry VTT class definition, method signature, global namespace augmentation, or type shape — check the pf2e-types repository at https://github.com/7H3LaughingMan/pf2e-types before running a web search. It provides comprehensive `.d.ts` declarations for all core Foundry v14 classes (via its `@7h3laughingman/foundry-types` dependency) and is the most reliable source for exact API surfaces.
+
+Key files to check:
+- `src/global.d.ts` — Foundry global namespace augmentations (`game`, `canvas`, `ui`, `Hooks`)
+- `src/global-exports.d.ts` — Exported class and interface declarations
+- `src/global-functions.d.ts` — Global helper function signatures
+
+Install as dev dependencies for your own projects:
+```json
+{
+  "devDependencies": {
+    "@7h3laughingman/foundry-types": "~14.360.8",
+    "@7h3laughingman/pf2e-types": "^8.0.2"
   }
 }
 ```
