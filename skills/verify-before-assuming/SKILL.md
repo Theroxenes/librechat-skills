@@ -8,7 +8,7 @@ always-apply: true
 
 ## Core Rule
 
-Verify any concrete fact not yet established in conversation via `web_search` or `get_file_contents`. Never rely on training memory for specifics.
+Verify any concrete fact not yet established in conversation via other skill definitions, `web_search` or `get_file_contents`. Never rely on training memory for specifics.
 
 ## What Counts as an "Unknown"
 
