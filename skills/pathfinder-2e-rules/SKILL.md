@@ -1,51 +1,33 @@
 ---
 name: pathfinder-2e-rules
-description: "Use when answering any question about Pathfinder Second Edition (PF2e) rules, mechanics, character options, spells, feats, monsters, equipment, conditions, or actions. Invoke for each new rules question in an ongoing PF2e conversation, even if used earlier in the thread. Triggers: PF2e, Pathfinder 2e, Paizo, skill checks, DCs, conditions, ancestry, feats, spells, monsters, stat blocks, build advice, remastered vs legacy rulings. Default to remastered PF2e when the edition is ambiguous but context is clearly Pathfinder 2e."
+description: "Use for any Pathfinder Second Edition (PF2e) rules question — mechanics, character options, spells, feats, monsters, equipment, conditions, actions, DCs, build advice. Invoke for each new rules question even if already used in thread. Triggers: PF2e, Pathfinder 2e, Paizo, skill checks, DCs, ancestry, feats, spells, stat blocks, remastered vs legacy. Default to remastered when ambiguous."
 ---
 
-# Pathfinder 2e Rules Reference
+# Pathfinder 2e Rules Reference (Remastered)
 
 ## Authoritative Source
 
-Always prefer **Archives of Nethys** (<https://2e.aonprd.com>) as the primary reference for Pathfinder 2e rules. It is the free-reference site and contains the complete remastered ruleset.
-
-Use `web_search` with `site:2e.aonprd.com` to look up specific rules, spells, feats, monsters, equipment, or conditions when precision matters.
+Primary source: **Archives of Nethys** (<https://2e.aonprd.com>). Use `web_search` with `site:2e.aonprd.com` for precision.
 
 ## Remastered Over Legacy
 
-Pathfinder 2e underwent a **remaster** that removed alignment, reworked many subsystems, and replaced or rebalanced numerous spells, feats, and items.
-
-- **Always prefer remastered content** unless the user explicitly asks for legacy (pre-remaster) rules.
-- If a question could be answered differently under legacy vs. remaster, state which version you are referencing.
-- When the user does not specify, assume remastered.
-
-## Key Remaster Changes to Keep in Mind
-
-| Legacy concept | Remastered status |
-|---|---|
-| Alignment | Removed entirely |
-| Spell schools (Conjuration, Evocation, etc.) | Removed; traditions remain |
-| Many feats, spells, and items | Rebalanced or replaced |
+Always prefer remastered unless user asks for legacy. Key changes: alignment removed, spell schools removed (traditions remain), many feats/spells/items rebalanced or replaced. State which version you're referencing if ambiguous.
 
 ## Workflow for Rules Questions
 
-1. **Identify the specific rule** — spell name, feat, condition, action economy question, DC calculation, etc.
-2. **Search Archives of Nethys** — use `web_search` with a targeted query and `site:2e.aonprd.com`.
-3. **Quote or paraphrase accurately** — cite the rule text when precision matters (e.g., exact DC values, action costs, trait lists).
-4. **State remastered vs legacy** if ambiguity exists.
-5. **If unverifiable on AoN**, say so rather than guessing from training memory.
+1. Identify the specific rule (spell, feat, condition, DC, etc.).
+2. Search AoN: `web_search` with `"term" site:2e.aonprd.com`.
+3. Quote/paraphrase accurately — cite exact DCs, action costs, traits. State remastered vs legacy if ambiguous. If unverifiable on AoN, say so rather than guessing.
 
-## Common Query Patterns
+## Search Patterns on AoN
 
-| User asks about... | Search strategy |
-|---|---|
-| A specific spell or feat name | `"spell/feat name" site:2e.aonprd.com` |
-| Conditions (stunned, frightened, etc.) | `"condition name" condition site:2e.aonprd.com` |
-| Action economy / reactions | `"action name" site:2e.aonprd.com` |
-| Monster stat blocks | `"monster name" Bestiary site:2e.aonprd.com` |
-| Equipment / items | `"item name" Equipment site:2e.aonprd.com` |
-| General rules (DCs, degrees of success) | `"rule reference" rules site:2e.aonprd.com` |
+- Spell/feat: `"name" site:2e.aonprd.com`
+- Condition: `"name" condition site:2e.aonprd.com`
+- Action/reaction: `"name" site:2e.aonprd.com`
+- Monster: `"name" Bestiary site:2e.aonprd.com`
+- Item: `"name" Equipment site:2e.aonprd.com`
+- Rules: `"topic" rules site:2e.aonprd.com`
 
 ## Tone
 
-Be precise and cite sources. When giving build advice or rulings, ground recommendations in actual rule text rather than general familiarity with the system.
+Ground all rulings and build advice in actual AoN rule text, not training memory. Cite sources.
