@@ -15,7 +15,7 @@ description: >
 
 # Prompt Forger
 
-Generate compact, high-signal system prompts optimized for mid-size local models (Qwen 3.5 27b and similar).
+Generate compact, high-signal system prompts optimized for mid-size local models (Qwen 3.6 27b and similar).
 
 ## Design Principles
 
@@ -34,7 +34,7 @@ Ask the user (or infer from context):
 | Parameter | Default | Notes |
 |-----------|---------|-------|
 | Agent role | General coding assistant | Coding, research, DevOps, analysis, etc. |
-| Target model | Qwen 3.5 27b | Affects tone and structure assumptions |
+| Target model | Qwen 3.6 27b | Affects tone and structure assumptions |
 | Tool access | None specified | Shell, file read/write, web search, MCP tools, etc. |
 | Output format | Free-form with code blocks | JSON-only, structured markdown, etc. |
 | Safety constraints | Standard | No speculation, verify-before-asserting, etc. |
