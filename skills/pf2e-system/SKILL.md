@@ -6,11 +6,9 @@ description: >
   including actor/item preparation, PF2e document schemas, the game.pf2e namespace,
   compendium pack manipulation specific to PF2e, spell/feat/action data, conditions,
   DC calculations, chat card rendering, or any PF2e system-internal behavior. Also
-  triggers when the user mentions "PF2e", "Pathfinder 2e", "game.pf2e",
-  "actor.system" in a PF2e context, "TraitsPF2e", "ChatCardPF2e", or references
-  the pf2e GitHub repo. If the task is about general Foundry VTT APIs (hooks,
-  documents, modules) without PF2e specifics, use the foundry-vtt-developer skill
-  instead.
+  triggers when the user mentions "game.pf2e", "actor.system""TraitsPF2e",
+  "ChatCardPF2e", If the task is about general Foundry VTT APIs (hooks, documents,
+  modules) without PF2e specifics, use the foundry-vtt-developer skill instead.
 ---
 
 # PF2e System Developer
@@ -21,9 +19,9 @@ Work with the Pathfinder 2nd Edition game system for Foundry VTT v14. The PF2e s
 
 | Resource | URL |
 |---|---|
+| pf2e-types (TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
 | PF2e System GitHub | https://github.com/foundryvtt/pf2e |
 | PF2e Wiki | https://github.com/foundryvtt/pf2e/wiki |
-| pf2e-types (TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
 | Foundry VTT API docs (v14) | https://foundryvtt.com/api/ |
 
 Always check the PF2e source repo or the pf2e-types repository before assuming behavior — the system has extensive custom APIs beyond core Foundry.

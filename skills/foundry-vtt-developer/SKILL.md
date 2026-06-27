@@ -3,15 +3,12 @@ name: foundry-vtt-developer
 description: >
   Develop modules, macros, and code for Foundry VTT v14. Use this skill whenever
   the user asks to write, debug, review, or explain Foundry VTT JavaScript/TypeScript
-  code — including module.json manifests, ES module entry points, Hooks registration
-  (game.ready, render*, createDocument, updateDocument), Document/DataModel patterns,
-  ApplicationV2 UI, canvas interactions, chat messages, compendium packs, socket
-  listeners, or any Foundry-specific API. Also triggers for Foundry macro scripts
-  (JavaScript snippets run from the hotbar). If the user mentions "Foundry",
+  code — including module manifests, ESModules, Hook registration, Document/DataModel
+  patterns, ApplicationV2 UI, canvas interactions, compendium packs, or any Foundry-
+  specific API. Also triggers for Foundry macro scripts. If the user mentions "Foundry",
   "FoundryVTT", "module.json", "game.ready", "Hooks.callOnce", "DocumentSheet",
-  "Compendium", "TokenHUD", "canvas.tokens", or any Foundry-specific class name,
-  invoke this skill. Do NOT use this for PF2e system internals — use the pf2e-system
-  skill for that instead.
+  "Compendium", "canvas.tokens", or any Foundry-specific class name,invoke this skill.
+  Do NOT use this for PF2e system internals — use the pf2e-system skill for that instead.
 ---
 
 # Foundry VTT Developer (v14)
@@ -22,9 +19,9 @@ Write modules, macros, and client-side code for Foundry Virtual Tabletop v14. Al
 
 | Resource | URL |
 |---|---|
+| pf2e-types (Foundry + PF2e TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
 | Foundry VTT API docs (v14) | https://foundryvtt.com/api/ |
 | Foundry VTT GitHub | https://github.com/foundryvtt/foundryvtt |
-| pf2e-types (Foundry + PF2e TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
 | Module development guide | https://foundryvtt.com/article/module-development/ |
 
 When unsure about an API surface, check the pf2e-types repository or search the official docs — do not guess at class names or method signatures.
