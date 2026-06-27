@@ -31,7 +31,7 @@ Four config surfaces:
 
 | File | Purpose |
 |------|---------|
-| `.env` | Secrets, API keys, server flags |
+| `.env` or Portainer's Environments feature | Secrets, API keys, server flags |
 | `librechat.yaml` | Endpoints, modelSpecs, interface, MCP, agents, customParams |
 | `docker-compose.yml` | Container orchestration, volumes |
 | `config/filters.js` | Custom request/response filters (optional) |
@@ -45,7 +45,7 @@ Ask: version, goal (add provider, tune params, change UI, agents, debug), deploy
 | Task | Config surface |
 |------|---------------|
 | Add / switch AI provider | `librechat.yaml` → `endpoint` section |
-| Set API keys | `.env` or `librechat.yaml` with `${ENV_VAR}` |
+| Set API keys | `.env`/Portainer Environments or `librechat.yaml` with `${ENV_VAR}` |
 | Tune model parameters (temperature, top_p, max_tokens) | `librechat.yaml` → `customParams.defaultParamsEndpoint` or per-modelSpec |
 | Create model presets / groups | `librechat.yaml` → `modelSpecs` |
 | Change UI behavior (hide features, set defaults) | `librechat.yaml` → `interface` section |
