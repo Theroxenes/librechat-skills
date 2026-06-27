@@ -23,9 +23,10 @@ Work with the Pathfinder 2nd Edition game system for Foundry VTT v14. The PF2e s
 |---|---|
 | PF2e System GitHub | https://github.com/foundryvtt/pf2e |
 | PF2e Wiki | https://github.com/foundryvtt/pf2e/wiki |
+| pf2e-types (TypeScript types) | https://github.com/7H3LaughingMan/pf2e-types |
 | Foundry VTT API docs (v14) | https://foundryvtt.com/api/ |
 
-Always check the PF2e source repo before assuming behavior — the system has extensive custom APIs beyond core Foundry.
+Always check the PF2e source repo or the pf2e-types repository before assuming behavior — the system has extensive custom APIs beyond core Foundry.
 
 ## Project Structure
 
@@ -109,29 +110,34 @@ const dc = new DC({ value: 19, kind: "class", proficiency: 3 });
 
 Use `_loc()` for string localization in PF2e context. The system ships with multiple language packs (main, actions, rules elements, Kingmaker).
 
-## TypeScript Configuration
+## TypeScript Configuration & Types
 
-The PF2e project targets ES2024 with strict mode and path aliases:
+The PF2e project targets ES2024 with strict mode and path aliases. Use `@7h3laughingman/pf2e-types` for comprehensive type definitions covering all PF2e classes, global augmentations, and system APIs:
 
 ```json
 {
-  "compilerOptions": {
-    "target": "es2024",
-    "module": "NodeNext",
-    "strict": true,
-    "paths": {
-      "@actor/*": ["./src/module/actor/*"],
-      "@item/*": ["./src/module/item/*"],
-      "@module/*": ["./src/module/*"],
-      "@scripts/*": ["./src/scripts/*"]
-    }
+  "devDependencies": {
+    "@7h3laughingman/foundry-types": "~14.360.8",
+    "@7h3laughingman/pf2e-types": "^8.0.2"
   }
 }
 ```
 
+### Looking Up PF2e Types and Class Definitions
+
+When you need to verify a PF2e class definition, method signature, `game.pf2e` namespace shape, or any system-specific type — check the pf2e-types repository at https://github.com/7H3LaughingMan/pf2e-types before running a web search. It mirrors the PF2e source structure with full `.d.ts` declarations and is the most reliable source for exact API surfaces.
+
+Key files to check:
+- `src/global.d.ts` — Foundry global namespace augmentations (`game`, `canvas`, `ui`)
+- `src/global-exports.d.ts` — Exported class and interface declarations
+- `src/global-functions.d.ts` — Global helper function signatures
+- `src/module/` — PF2e module type definitions (actor, item, scene, system)
+
+Always check the pf2e-types source for exact class definitions and method signatures before coding.
+
 ## Common Pitfalls
 
 1. **PF2e data lives in `.system`** — never mutate `actor.system` directly; use the document's update API
-2. **Check PF2e source before coding** — the system has deep custom APIs that differ from core Foundry patterns
+2. **Check PF2e source or pf2e-types before coding** — the system has deep custom APIs that differ from core Foundry patterns
 3. **`game.pf2e` is undefined before ready** — guard access with `Hooks.once("ready")` or check for existence
 4. **For general Foundry APIs (hooks, documents, modules), use the foundry-vtt-developer skill** — this skill covers only PF2e-specific behavior
