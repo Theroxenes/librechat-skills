@@ -37,7 +37,7 @@ Access only after `ready` hook (populated during init). Contains settings, rules
 ```javascript
 actor.system.attributes.hp.value;   // hit points
 actor.system.attributes.ac.value;   // armor class
-actor.system.perception.value;      // perception is top-level, NOT under attributes
+actor.system.perception.value;      // perception
 actor.system.details.level.value;   // creature level
 feat.system.traits;
 ```
@@ -51,6 +51,12 @@ await ChatMessagePF2e.create({
   content: "...",
   whisper: game.users.filter((u) => u.isGM).map((u) => u.id),  // GM-only whisper
 });
+```
+
+or from a PF2e system object:
+```typescript
+const mySpell = actor.itemTypes.spell.find((s) => s.slug === "my-spell");
+await mySpell?.toMessage(event, { rollMode: "publicroll", create: true });
 ```
 
 ### Conditions & DC Calculations
