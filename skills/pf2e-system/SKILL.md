@@ -35,31 +35,35 @@ Access only after `ready` hook (populated during init). Contains settings, rules
 ### Actor & Item Data
 
 ```javascript
-actor.system.attributes.hp.value;
-actor.system.attributes.ac.perception;
-actor.system.level;
-spell.system.actionDC.dc;
+actor.system.attributes.hp.value;   // hit points
+actor.system.attributes.ac.value;   // armor class
+actor.system.perception.value;      // perception is top-level, NOT under attributes
+actor.system.details.level.value;   // creature level
 feat.system.traits;
 ```
 
-Read via public API only — check source before assuming internal structure.
+Statistics are also exposed as objects on the actor (e.g. `actor.perception.dc`, `actor.armorClass.value`). Read via public API only — verify exact paths against source/pf2e-types before assuming.
 
 ### Chat Cards
 
 ```javascript
-await ChatMessagePF2e.whisperToGMs({ content: "..." });
+await ChatMessagePF2e.create({
+  content: "...",
+  whisper: game.users.filter((u) => u.isGM).map((u) => u.id),  // GM-only whisper
+});
 ```
 
 ### Conditions & DC Calculations
 
 ```javascript
-actor.hasCondition("fear");
-const dc = new DC({ value: 19, kind: "class", proficiency: 3 });
+actor.hasCondition("frightened");          // boolean; accepts one or more condition slugs
+actor.getCondition("frightened")?.value;   // active condition document, or null
+actor.armorClass.value;                    // DCs/statistics are exposed as objects (AC, saves, perception)
 ```
 
 ### i18n Localization
 
-Use `_loc()`. Ships with main, actions, rules elements, Kingmaker packs.
+Use `game.i18n.localize(key)` / `game.i18n.format(key, data)`. PF2e ships translation packs for the system, actions, and rule elements.
 
 ## TypeScript Configuration & Types
 

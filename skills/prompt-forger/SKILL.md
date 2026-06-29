@@ -1,16 +1,10 @@
 ---
 name: prompt-forger
 description: >
-  Generate compact, high-signal system prompts for LLM coding and research agents.
-  Use when the user asks to write a system prompt, craft an agent persona, create
-  instructions for a local LLM (Qwen, Llama, Mistral, etc.), or optimize an
-  existing system prompt for token efficiency. Also triggers for "make my system
-  prompt shorter", "system prompt for coding agent", "agent instructions for
-  Qwen", "compact system prompt", "reduce system prompt tokens", or any request
-  to design the initial system message that guides an LLM's behavior. Always use
-  this skill whenever the user mentions system prompts, agent personas, or LLM
-  instruction design — even if they just say "help me write instructions for my
-  AI assistant."
+  Generate or optimize compact, high-signal system prompts for LLM agents
+  (coding, research, etc.). Use when the user asks to write a system prompt,
+  craft an agent persona, design instructions for a local LLM (Qwen, Llama,
+  Mistral), shorten/compact a system prompt, or reduce its token count.
 ---
 
 # Prompt Forger

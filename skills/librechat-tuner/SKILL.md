@@ -38,13 +38,15 @@ Four config surfaces:
 
 ## Workflow
 
+### 1. Gather Requirements
+
 Ask: version, goal (add provider, tune params, change UI, agents, debug), deployment method.
 
 ### 2. Identify the Config Surface
 
 | Task | Config surface |
 |------|---------------|
-| Add / switch AI provider | `librechat.yaml` → `endpoint` section |
+| Add / switch AI provider | `librechat.yaml` → `endpoints` section |
 | Set API keys | `.env`/Portainer Environments or `librechat.yaml` with `${ENV_VAR}` |
 | Tune model parameters (temperature, top_p, max_tokens) | `librechat.yaml` → `customParams.defaultParamsEndpoint` or per-modelSpec |
 | Create model presets / groups | `librechat.yaml` → `modelSpecs` |
@@ -67,9 +69,14 @@ Confirm keys exist in user's version. Mention newer features with minimum requir
 
 ```yaml
 # librechat.yaml
-endpoint:
-  customProvider:
-    ...
+endpoints:
+  custom:
+    - name: "My Provider"
+      apiKey: "${MY_API_KEY}"
+      baseURL: "https://api.example.com/v1"
+      models:
+        default: ["model-a"]
+        fetch: true
 ```
 Ref: <https://www.librechat.ai/docs/configuration/librechat_yaml/object_structure/custom_endpoint>
 
@@ -92,10 +99,13 @@ Ref: <https://www.librechat.ai/docs/configuration/librechat_yaml/object_structur
 ```yaml
 # librechat.yaml
 modelSpecs:
-  include:
-    - spec: ...
-  exclude: []
-  sort: ""
+  list:
+    - name: "spec-name"
+      label: "Display Name"
+      preset:
+        endpoint: "openAI"
+        model: "gpt-4o"
+        temperature: 0.7
 ```
 Ref: <https://www.librechat.ai/docs/configuration/librechat_yaml/object_structure/model_specs>
 
@@ -114,9 +124,9 @@ interface:
 ```yaml
 # librechat.yaml
 mcpServers:
-  - name: "my-server"
+  my-server:                       # keyed by name — an object, not a list
+    type: sse                      # "sse" (default) or "stdio"
     url: "http://localhost:3001/mcp"
-    ...
 ```
 Ref: <https://www.librechat.ai/docs/features/mcp>
 

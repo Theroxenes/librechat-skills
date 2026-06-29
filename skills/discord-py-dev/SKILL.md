@@ -30,6 +30,8 @@ Key 1.x → 2.x breaking changes:
 
 ## Workflow
 
+### 1. Scope the Bot
+
 Ask what they're building, whether they use `commands.Bot` or `discord.Client`, and if they need guild- or global-scoped commands.
 
 ### 2. Identify the API Surface
@@ -38,7 +40,7 @@ Ask what they're building, whether they use `commands.Bot` or `discord.Client`, 
 |------|-------------------|
 | Prefix text commands | `discord.ext.commands.Bot`, `@bot.command()`, `@bot.group()` |
 | Slash (application) commands | `discord.app_commands`, `@bot.tree.command()`, `@app_commands.describe()` |
-| Context menu commands | `@bot.tree.context_menu()`, `AppCommandsContext` |
+| Context menu commands | `@bot.tree.context_menu()` on a `Member` or `Message` |
 | Interactive components (buttons, selects, modals) | `discord.ui.View`, `Button`, `Select`, `Modal`, `TextInput` |
 | Embeds / rich messages | `discord.Embed`, `Embed.add_field()`, `Embed.set_thumbnail()` |
 | Event handling | `@bot.event`, `on_message`, `on_reaction_add`, `on_member_join`, etc. |
@@ -112,7 +114,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
-    await bot.tree.sync()  # Use .guild_sync(guild) for dev
+    await bot.tree.sync()  # For dev, scope to one guild: bot.tree.sync(guild=discord.Object(id=GUILD_ID))
 
 @bot.tree.command(name="ping", description="Ping the bot")
 async def ping(interaction: discord.Interaction):

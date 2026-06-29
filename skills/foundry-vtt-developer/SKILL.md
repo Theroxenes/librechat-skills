@@ -4,7 +4,7 @@ description: >
   Develop modules, macros, and code for Foundry VTT v14. Use when writing, debugging,
   or explaining Foundry VTT JS/TS code — module manifests, ESModules, Hooks,
   Document/DataModel, ApplicationV2, canvas, compendiums, macros. Triggers:
-  "Foundry", "module.json", "game.ready", "Hooks.callOnce", "DocumentSheet",
+  "Foundry", "module.json", "game.ready", "Hooks.once", "DocumentSheet",
   "Compendium", "canvas.tokens". Do NOT use for PF2e system internals — use
   pf2e-system skill instead.
 ---
@@ -50,12 +50,12 @@ Minimum viable:
 
 ### Hook System
 
-Register with `Hooks.on` (recurring), `Hooks.once` (one-time init), or `Hooks.callAll`. Never access game data before `ready`:
+Register with `Hooks.on` (recurring) or `Hooks.once` (one-time init); fire your own with `Hooks.callAll`/`Hooks.call`. Never access game data before `ready`:
 
 | Hook | When |
 |---|---|
-| `load` | Before world data loads |
-| `setup` | After data loads, before ready |
+| `init` | Earliest startup — register settings, wrap core functions; no game data yet |
+| `setup` | After init, before Documents/UI/Canvas are ready |
 | `ready` | Everything initialized — safe to access game data |
 | `renderApplicationV2` | App renders |
 | `createDocument`/`updateDocument`/`deleteDocument` | Doc lifecycle |
@@ -74,12 +74,12 @@ const newActor = await Actor.create({ name: "NPC", type: "character", system: {}
 
 ### ApplicationV2 (v12+)
 
-Prefer over legacy `Application`:
+Prefer over legacy `Application`. Accessed via the global `foundry` namespace, not a bare import:
 
 ```typescript
-import { ApplicationV2, FormApplication } from "foundry";
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
-export class MySettings extends ApplicationV2 {
+export class MySettings extends HandlebarsApplicationMixin(ApplicationV2) {
   static PARTS = { /* form parts */ };
 }
 ```

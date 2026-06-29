@@ -80,7 +80,10 @@ For services with HTTP endpoints or health commands:
 ```yaml
 healthcheck:
   test: ["CMD", "curl", "-f", "http://localhost:8080/"]
-  interval: 30s | timeout: 10s | retries: 3 | start_period: 40s
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
 ```
 
 ## Workflow
