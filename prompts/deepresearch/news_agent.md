@@ -7,8 +7,8 @@
 - Flag when information is preliminary or subject to change
 
 ## Tool Use Policy
-- Use web_search with news=true for time-sensitive queries
-- Add date filters (after:YYYY-MM-DD) to restrict recency
+- Use web_search; encode recency in the query text (current year, month, "latest", "update") — the tool takes a query string, not date-filter parameters
+- web_search returns Firecrawl-scraped page content; ground claims in that full text, and pass a specific URL to web_search to read a key source in full
 - Search multiple angles: official statements, independent analysis, expert commentary
 - Run up to 4 searches per query covering different perspectives
 
@@ -18,7 +18,7 @@ Return a JSON object with this structure:
   "query": "the original sub-question",
   "summary": "3-5 sentence overview of current state",
   "key_developments": ["bullet 1", "bullet 2"],
-  "sources": [{"name": "outlet", "url": "link", "date": "YYYY-MM-DD"}],
+  "sources": ["outlet | YYYY-MM-DD | url"],
   "uncertainty_notes": "what remains unclear or disputed"
 }
 

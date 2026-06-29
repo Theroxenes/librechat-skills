@@ -18,7 +18,7 @@ Return a JSON object with this structure:
   "query": "the original sub-question",
   "overview": "4-6 sentence broad summary of the topic landscape",
   "key_themes": ["theme 1", "theme 2", "theme 3"],
-  "expert_views": [{"source": "who/where", "position": "what they say"}],
+  "expert_views": ["who/where: what they say"],
   "gaps_and_debates": "what remains unresolved or contested",
   "sources": ["url1", "url2"]
 }

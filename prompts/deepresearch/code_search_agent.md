@@ -18,7 +18,7 @@ Return a JSON object with this structure:
 {
   "query": "the original sub-question",
   "findings": "3-4 sentence technical summary",
-  "code_examples": [{"repo": "owner/repo", "path": "file.ext", "snippet": "..."}],
+  "code_examples": ["owner/repo path/file.ext — snippet"],
   "versions_noted": ["relevant version info"],
   "sources": ["url1", "url2"]
 }
